@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="chat-wrap" style="width: 500px; margin: 0 auto;">
+        <h2>My Chat</h2>
+
+        <p id="connection-satus" data-bind="text: SingalRConnectStateMsg"></p>
+
+        <div id="chat_messages" data-bind="template: { name: 'chatMsgTmpl', foreach: ChatMessages }"></div>
+        <script id="chatMsgTmpl" type="text/html">
+            <div class="panel panel-default">
+                <div class="panel-body" data-bind="html: $data">
+                </div>
+            </div>
+        </script>
+
+        <div class="text-center">
+            <div style="margin-bottom: 11px;">
+                <textarea id="txtChatInput" class="form-control" data-bind="value: InputMessage" rows="5"></textarea>
+            </div>
+            <button id="btnPostChat" type="button" class="btn btn-primary" data-bind="click: PostMessage">送信</button>
+        </div>
+    </div>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/knockout-3.2.0.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="Scripts/viewmodels/ChatViewModel.js"></script>
+    <script>
+        $(function () {
+            var _vm = new ChatViewModel();
+            ko.applyBindings(_vm, $("#chat-wrap")[0]);
+        });
+    </script>
+</body>
+</html>
